@@ -1,0 +1,16 @@
+//
+//  HDWHLoadSuccsessVIew.h
+//  Demo2_BezierPath
+//
+//  Created by 石伟浩 on 16/4/21.
+//  Copyright © 2016年 tarena. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface HDWHLoadSuccsessVIew : UIView
++ (id)view;
+@property (weak, nonatomic) IBOutlet UIImageView *subImageView;
+@property (weak, nonatomic) IBOutlet UILabel *tishiLbale;
+
+@end

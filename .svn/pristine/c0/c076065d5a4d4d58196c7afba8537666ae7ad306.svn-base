@@ -1,0 +1,17 @@
+//
+//  WHChekListController.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/3/28.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "WHPayBackModel.h"
+@interface WHChekListController : LDBaseUIViewController
+
+
+//审贷ID
+@property (nonatomic, strong) NSString * payBackID;
+
+@end

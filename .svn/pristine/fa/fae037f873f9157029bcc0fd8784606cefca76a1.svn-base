@@ -1,0 +1,13 @@
+//
+//  HDAreaModel.m
+//  MerchantEdition
+//
+//  Created by 石伟浩 on 16/11/29.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDAreaModel.h"
+
+@implementation HDAreaModel
+
+@end

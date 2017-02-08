@@ -1,0 +1,16 @@
+//
+//  WHPayBackTopView.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/3/28.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WHPayBackTopView : UIView
+//还款额label
+@property (weak, nonatomic) IBOutlet UILabel *payBackMoneyLabel;
+
++ (id)view;
+@end

@@ -1,0 +1,24 @@
+//
+//  WHSearchViewCell.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/3/26.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHSearchViewCell.h"
+
+@implementation WHSearchViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

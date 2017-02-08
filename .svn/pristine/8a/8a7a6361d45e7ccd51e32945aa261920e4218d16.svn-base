@@ -1,0 +1,19 @@
+//
+//  HDScoreModel.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/31.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDScoreModel : NSObject
+
+/** 1.信用分 */
+@property (nonatomic, strong) NSString * creditScore;
+
+/** 2.信息程度 */
+@property (nonatomic, strong) NSString * level;
+
+@end

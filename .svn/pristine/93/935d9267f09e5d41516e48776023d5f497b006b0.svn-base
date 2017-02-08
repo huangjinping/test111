@@ -1,0 +1,24 @@
+//
+//  AuthorizCellView.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/6/21.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "AuthorizCellView.h"
+
+@implementation AuthorizCellView
+
++ (id)view {
+    
+    return [[[NSBundle mainBundle] loadNibNamed:@"AuthorizCellView" owner:nil options:nil] lastObject];
+    
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.autoresizingMask = UIViewAutoresizingNone;
+    }
+    return self;
+}
+@end

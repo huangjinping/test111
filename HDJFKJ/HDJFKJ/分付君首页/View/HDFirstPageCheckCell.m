@@ -1,0 +1,38 @@
+
+
+#import "HDFirstPageCheckCell.h"
+
+@implementation HDFirstPageCheckCell
+
+
+- (void)setDebtInfo:(HDFirstPageDebtInfo *)debtInfo{
+
+    _debtInfo = debtInfo;
+    
+    if (debtInfo.applyId != nil) {
+        self.repaymentAmtLabel.text = [NSString stringWithFormat:@"%.2f",[_debtInfo.repaymentAmt floatValue]];
+    }
+    else{
+        self.repaymentAmtLabel.text = @"0.00";
+    
+    }
+    
+    
+//    [self.titleLabel sizeToFit];
+//    
+//    [self.topLabel sizeToFit];
+//    [self.bottomLabel sizeToFit];
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

@@ -1,0 +1,13 @@
+//
+//  HDFirstPageOrderInfo.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/19.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDFirstPageOrderInfo.h"
+
+@implementation HDFirstPageOrderInfo
+
+@end

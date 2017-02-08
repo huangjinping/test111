@@ -1,0 +1,13 @@
+//
+//  HDYangLiController.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/10.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDBaseUIViewController.h"
+typedef void (^PhotoCompletionBlock)();
+@interface HDYangLiController : LDBaseUIViewController
+@property (nonatomic, strong) PhotoCompletionBlock completionBlock;
+@end

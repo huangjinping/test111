@@ -1,0 +1,16 @@
+//
+//  HDVerificationModel.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/30.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDVerificationModel : NSObject
+
+/** 1.验证码 */
+@property (nonatomic, strong) NSString * smsCode;
+
+@end

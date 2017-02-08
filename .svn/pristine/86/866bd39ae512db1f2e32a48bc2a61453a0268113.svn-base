@@ -1,0 +1,318 @@
+//
+//  WHChekListController.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/3/28.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHChekListController.h"
+#import "WHCheckTopView.h"
+#import "WHCheckListCell.h"
+#import "WHCheckModel.h"
+#import "WHCheckListModel.h"
+#import "HDPayBackCommodity.h"
+
+@interface WHChekListController ()<UITableViewDataSource,UITableViewDelegate>
+//订单详情试图
+@property (nonatomic, strong) WHCheckTopView * topView;
+//订单列表试图
+@property (nonatomic, strong) UITableView * checkListTableView;
+//还款详情列表数组
+@property (nonatomic, strong) NSMutableArray * checkListArray;
+//还款详情模型
+@property (nonatomic, strong) WHCheckModel * checkModel;
+
+@end
+
+@implementation WHChekListController
+
+- (NSMutableArray *)checkListArray{
+    if (!_checkListArray) {
+        _checkListArray = [[NSMutableArray alloc]init];
+    }
+    return _checkListArray;
+}
+//隐藏taber
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    //设置导航栏的背景色
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    
+    //self.parentViewController.tabBarController.tabBar.hidden = YES;
+    
+}
+//显示taber
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //self.parentViewController.tabBarController.tabBar.hidden = NO;
+
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"账单";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    //1.创建顶部订单详情试图
+    [self createTopView];
+    
+    //2.创建还款详情列表
+    [self createCheckListTableView];
+    
+    //3.请求数据
+    [self sendRequest];
+}
+
+//1.创建顶部订单详情试图
+- (void)createTopView{
+    
+    self.topView = [WHCheckTopView view];
+    self.topView.frame = CGRectMake(0, 0, LDScreenWidth, 160);
+    
+    self.topView.picImageView.layer.cornerRadius = 0.0;
+    self.topView.picImageView.layer.borderColor = [WHColorFromRGB(0xf0f0f0) CGColor];
+    self.topView.picImageView.layer.borderWidth = 0.5f;
+    
+    [self.view addSubview:self.topView];
+    
+}
+//2.创建还款列表
+- (void)createCheckListTableView{
+    self.checkListTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 160, LDScreenWidth, self.view.frame.size.height - 160)];
+    
+    self.checkListTableView.delegate = self;
+    self.checkListTableView.dataSource = self;
+    self.checkListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.view addSubview:self.checkListTableView];
+    
+}
+
+//夹杂数据
+- (void)loadTopViewData{
+
+
+}
+#pragma mark ---  tableVIew的协议方法
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.checkListArray.count;
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 50.0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    WHCheckListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
+    if(cell == nil)
+    {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"WHCheckListCell" owner:nil options:nil]lastObject];
+        
+    }
+    WHCheckListModel * checkListModel = self.checkListArray[indexPath.row];
+    cell.currentperiodLabel.text = [NSString stringWithFormat:@"%@",checkListModel.period];
+    cell.perioddebtLabel.text =[NSString stringWithFormat:@"%@",checkListModel.periodamount];
+    
+    cell.currentperiodLabel.layer.cornerRadius = 15.0;
+    cell.currentperiodLabel.layer.borderWidth = 1.0f;
+    
+    NSString * staus = nil;
+    if (checkListModel.status == 0) {
+        cell.currentperiodLabel.layer.borderColor = [WHColorFromRGB(0xc8c7cc) CGColor];
+        cell.currentperiodLabel.textColor = WHColorFromRGB(0xc8c7cc);
+        cell.perioddebtLabel.textColor = WHColorFromRGB(0xc8c7cc);
+        cell.time.textColor =  WHColorFromRGB(0xc8c7cc);
+        
+        staus = @"已还清";
+    }else if (checkListModel.status == 1){
+        
+        cell.currentperiodLabel.layer.borderColor = [WHColorFromRGB(0x54bc6f) CGColor];
+        cell.currentperiodLabel.textColor = WHColorFromRGB(0x54bc6f);
+        cell.perioddebtLabel.textColor = WHColorFromRGB(0x54bc6f);
+        cell.time.textColor =  WHColorFromRGB(0x54bc6f);
+        staus = @"待还款";
+    }else{
+        cell.currentperiodLabel.layer.borderColor = [WHColorFromRGB(0xd33a31) CGColor];
+        cell.currentperiodLabel.textColor = WHColorFromRGB(0xd33a31);
+        cell.perioddebtLabel.textColor = WHColorFromRGB(0xd33a31);
+        cell.time.textColor =  WHColorFromRGB(0xd33a31);
+        staus = @"   逾期";
+    }
+    
+    cell.time.text = [NSString stringWithFormat:@"%@%@",checkListModel.duedate,staus];
+    
+    
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, cell.frame.size.height - 0.5, LDScreenWidth, 0.5)];
+    label.backgroundColor = WHColorFromRGB(0xc8c7cc);
+    [cell addSubview:label];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+
+
+//网络请求
+- (void)sendRequest{
+    
+    [HDLoading showWithImageWithString:@"正在加载"];
+    
+    NSString * str = [NSString stringWithFormat:@"%@order/debtList",KBaseUrl ];
+    
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    
+    [params setObject:[LDUserInformation sharedInstance].UserId forKey:@"id"];
+    [params setObject:[LDUserInformation sharedInstance].token forKey:@"token"];
+    [params setObject:self.payBackID forKey:@"applyId"];
+    
+    [[LDNetworkTools sharedTools] request:POST url:str params:params callback:^(id response, NSError *error) {
+        
+        if (error != nil) {
+             /** 1.打印请求错误信息*/
+            NSLog(@"%@",error);
+            
+            /** 2.请求错误提示  */
+            [HDLoading showFailViewWithString:@"网络错误"];
+            
+        }else{
+            
+            LDLog(@"%@",response);
+            
+            /** 3.解析返回信息  */
+            LDBackInformation * backInfo = [LDBackInformation mj_objectWithKeyValues:response];
+            
+            if ([backInfo.code isEqualToString:@"0"]) {
+                
+                [HDLoading dismissHDLoading];
+                
+                /** 4.解析还款计划  */
+                if (backInfo.result != nil) {
+                    
+                    /** 5.还款列表  */
+                    self.checkModel = [WHCheckModel mj_objectWithKeyValues:backInfo.result];
+                    
+                    /** 6.总价  */
+                    self.topView.applyamountLabel.text = [NSString stringWithFormat:@"总价：%.2f",[self.checkModel.applyamount floatValue]];
+                    
+                    UILabel * yuanLabel = [[UILabel alloc]initWithFrame:CGRectMake(LDScreenWidth - 26, 13, 13, 13)];
+                    yuanLabel.text = @"元";
+                    yuanLabel.font = [UIFont systemFontOfSize:13];
+                    yuanLabel.textColor = WHColorFromRGB(0x051b28);
+                    [self.topView.bottomView addSubview:yuanLabel];
+                    
+                    if (self.checkModel.commoditys.count > 0) {
+                        
+                        HDPayBackCommodity * commodity = self.checkModel.commoditys[0];
+                        //图片
+                        [ self.topView.picImageView sd_setImageWithURL:[NSURL URLWithString:commodity.pic] placeholderImage:[UIImage imageNamed:@"商品 1:1"] options:SDWebImageRefreshCached progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                            LDLog(@"下载进度：%f", 1.0 * receivedSize / expectedSize);
+                        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                            LDLog(@"下载完成");
+                        }];
+                        
+                        
+                        NSMutableString * commodityName = [[NSMutableString alloc]init];
+                        for (HDPayBackCommodity * commodity in self.checkModel.commoditys) {
+                            if (commodityName.length == 0) {
+                                [commodityName appendString:commodity.commodityName];
+                            }
+                            else{
+                                [commodityName appendString:@","];
+                                [commodityName appendString:commodity.commodityName];
+                            }
+                        }
+                        //商品名称
+                        self.topView.commoditynameLabel.text = commodityName;
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    //订单号
+                    self.topView.ordernoLabel.text = self.checkModel.orderno;
+                    //订单时间
+                    self.topView.timeLabel.text = self.checkModel.time;
+                    
+                    
+                    //代还款金额label
+                    
+                    float debt = [self.checkModel.debt floatValue];
+                    self.checkModel.debt = [NSString stringWithFormat:@"%.2f",debt];
+                    
+                    CGSize debtSize =[self.checkModel.debt sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+                    UILabel * debtLabel = [[UILabel alloc]initWithFrame:CGRectMake(LDScreenWidth - 26 - debtSize.width, 13, debtSize.width, 13)];
+                    debtLabel.text = self.checkModel.debt;
+                    debtLabel.textColor = WHColorFromRGB(0xd33a31);
+                    debtLabel.font = [UIFont systemFontOfSize:13];
+                    [self.topView.bottomView addSubview:debtLabel];
+                    
+                    //"元，待还"
+                    CGSize labelSize =[@"元，待还" sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+                    UILabel * strLabel = [[UILabel alloc]initWithFrame:CGRectMake(LDScreenWidth - 26 - labelSize.width - debtSize.width, 13, labelSize.width, 13)];
+                    strLabel.text = @"元，待还";
+                    strLabel.textColor = WHColorFromRGB(0x051b28);
+                    strLabel.font = [UIFont systemFontOfSize:13];
+                    [self.topView.bottomView addSubview:strLabel];
+                    
+                    //已还金额
+                    float paid = [self.checkModel.paid floatValue];
+                    
+                    self.checkModel.paid = [NSString stringWithFormat:@"%.2f",paid];
+                    
+                    CGSize paidSize =[self.checkModel.paid sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+                    UILabel * paidLabel = [[UILabel alloc]initWithFrame:CGRectMake(LDScreenWidth - 26 - labelSize.width - debtSize.width- paidSize.width , 13, paidSize.width, 13)];
+                    paidLabel.text = self.checkModel.paid;
+                    paidLabel.textColor = WHColorFromRGB(0x54bc6f);
+                    paidLabel.font = [UIFont systemFontOfSize:13];
+                    [self.topView.bottomView addSubview:paidLabel];
+                    
+                    //“已还”
+                    CGSize strSize =[@"已还" sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+                    UILabel * strLabel2 = [[UILabel alloc]initWithFrame:CGRectMake(LDScreenWidth - 26 - labelSize.width - debtSize.width- paidSize.width - strSize.width , 13, paidSize.width, 13)];
+                    strLabel2.text = @"已还";
+                    strLabel2.textColor = WHColorFromRGB(0x051b28);
+                    strLabel2.font = [UIFont systemFontOfSize:13];
+                    [self.topView.bottomView addSubview:strLabel2];
+                    
+                    
+                    self.checkListArray = [WHCheckListModel mj_objectArrayWithKeyValuesArray:self.checkModel.list];
+                }
+                
+                
+                
+                
+                [self.checkListTableView reloadData];
+            }
+            else{
+                [HDLoading showFailViewWithString:backInfo.message];
+            }
+            
+        }
+    }];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@end

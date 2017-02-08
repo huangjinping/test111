@@ -1,0 +1,18 @@
+//
+//  HDHistoryPictureCell.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/8.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDHistoryPictureCell.h"
+
+@implementation HDHistoryPictureCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+@end

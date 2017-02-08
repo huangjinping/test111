@@ -1,0 +1,16 @@
+//
+//  HDZuFangOrderController.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/10/11.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDBaseUIViewController.h"
+#import "WHQROrderModel.h"
+
+@interface HDZuFangOrderController : LDBaseUIViewController
+
+@property (nonatomic,strong) WHQROrderModel * detailModel;
+
+@end

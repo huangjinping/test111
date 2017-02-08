@@ -1,0 +1,25 @@
+//
+//  WHCashLoanFirstView.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/9.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHCashLoanFirstView.h"
+
+@implementation WHCashLoanFirstView
+
++ (id)view {
+    
+    return [[[NSBundle mainBundle] loadNibNamed:@"WHCashLoanFirstView" owner:nil options:nil] lastObject];
+    
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.autoresizingMask = UIViewAutoresizingNone;
+    }
+    return self;
+}
+
+@end

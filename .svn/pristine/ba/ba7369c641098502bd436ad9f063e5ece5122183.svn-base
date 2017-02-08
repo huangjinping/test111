@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="94" id="KGk-i7-Jjw" customClass="LDConformOrderViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="319" height="94"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="319" height="93"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择期数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qj-bR-XhK">
+                        <rect key="frame" x="13" y="13" width="75" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="5yA-36-vC1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgX-so-BOf" customClass="LDBorderButton">
+                        <rect key="frame" x="101" y="9" width="60" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="zMf-1V-L7R"/>
+                            <constraint firstAttribute="width" constant="60" id="zel-yJ-8d0"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="12个月">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2a1-bk-McJ"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yl1-sJ-3jG" customClass="LDBorderButton">
+                        <rect key="frame" x="171" y="9" width="60" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="15个月">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yle-xi-IHD"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFB-jY-qFf" customClass="LDBorderButton">
+                        <rect key="frame" x="241" y="9" width="60" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="18个月">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="f7j-73-d7Q"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXO-Bm-h13" customClass="LDBorderButton">
+                        <rect key="frame" x="101" y="54" width="60" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="24个月">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qeO-gx-C38"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sez-kU-R6J" customClass="LDBorderButton">
+                        <rect key="frame" x="171" y="54" width="60" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="28个月">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Eyw-6y-F1Y"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YS4-oW-0Nm" customClass="LDBorderButton">
+                        <rect key="frame" x="241" y="54" width="60" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal" title="24个月">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="GIp-fS-T2c"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Yl1-sJ-3jG" firstAttribute="width" secondItem="HgX-so-BOf" secondAttribute="width" id="6Gm-cm-0N4"/>
+                    <constraint firstItem="HgX-so-BOf" firstAttribute="centerY" secondItem="5qj-bR-XhK" secondAttribute="centerY" id="6iz-sg-5h0"/>
+                    <constraint firstItem="YS4-oW-0Nm" firstAttribute="centerY" secondItem="Sez-kU-R6J" secondAttribute="centerY" id="6yH-2C-QB1"/>
+                    <constraint firstItem="pXO-Bm-h13" firstAttribute="height" secondItem="HgX-so-BOf" secondAttribute="height" id="BfN-xy-tui"/>
+                    <constraint firstItem="pXO-Bm-h13" firstAttribute="width" secondItem="HgX-so-BOf" secondAttribute="width" id="CQh-lK-q5A"/>
+                    <constraint firstItem="Sez-kU-R6J" firstAttribute="centerY" secondItem="pXO-Bm-h13" secondAttribute="centerY" id="Cfs-AK-3G0"/>
+                    <constraint firstItem="YS4-oW-0Nm" firstAttribute="leading" secondItem="Sez-kU-R6J" secondAttribute="trailing" constant="10" id="Es4-EQ-bZq"/>
+                    <constraint firstItem="hFB-jY-qFf" firstAttribute="centerY" secondItem="Yl1-sJ-3jG" secondAttribute="centerY" id="Gtp-Jd-jHq"/>
+                    <constraint firstItem="hFB-jY-qFf" firstAttribute="height" secondItem="Yl1-sJ-3jG" secondAttribute="height" id="MFy-oD-V1g"/>
+                    <constraint firstItem="Sez-kU-R6J" firstAttribute="leading" secondItem="pXO-Bm-h13" secondAttribute="trailing" constant="10" id="NCx-j3-5JW"/>
+                    <constraint firstItem="hFB-jY-qFf" firstAttribute="width" secondItem="Yl1-sJ-3jG" secondAttribute="width" id="PDi-J1-DhQ"/>
+                    <constraint firstItem="HgX-so-BOf" firstAttribute="leading" secondItem="5qj-bR-XhK" secondAttribute="trailing" constant="13" id="Qcu-UD-XYz"/>
+                    <constraint firstItem="pXO-Bm-h13" firstAttribute="leading" secondItem="HgX-so-BOf" secondAttribute="leading" id="XcM-a4-nIi"/>
+                    <constraint firstItem="5qj-bR-XhK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="Xde-5v-ELd"/>
+                    <constraint firstItem="YS4-oW-0Nm" firstAttribute="width" secondItem="Sez-kU-R6J" secondAttribute="width" id="dcq-US-tuX"/>
+                    <constraint firstItem="Sez-kU-R6J" firstAttribute="height" secondItem="pXO-Bm-h13" secondAttribute="height" id="j3e-KM-i3o"/>
+                    <constraint firstItem="hFB-jY-qFf" firstAttribute="leading" secondItem="Yl1-sJ-3jG" secondAttribute="trailing" constant="10" id="jrd-Ah-FEs"/>
+                    <constraint firstItem="pXO-Bm-h13" firstAttribute="top" secondItem="HgX-so-BOf" secondAttribute="bottom" constant="15" id="kf6-fo-EPm"/>
+                    <constraint firstItem="YS4-oW-0Nm" firstAttribute="height" secondItem="Sez-kU-R6J" secondAttribute="height" id="kis-oN-gcC"/>
+                    <constraint firstItem="Yl1-sJ-3jG" firstAttribute="height" secondItem="HgX-so-BOf" secondAttribute="height" id="lpi-Eb-LUo"/>
+                    <constraint firstItem="5qj-bR-XhK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="ocH-Cz-72f"/>
+                    <constraint firstItem="Yl1-sJ-3jG" firstAttribute="leading" secondItem="HgX-so-BOf" secondAttribute="trailing" constant="10" id="qIz-05-tha"/>
+                    <constraint firstItem="Sez-kU-R6J" firstAttribute="width" secondItem="pXO-Bm-h13" secondAttribute="width" id="rlR-TI-oUY"/>
+                    <constraint firstItem="Yl1-sJ-3jG" firstAttribute="centerY" secondItem="HgX-so-BOf" secondAttribute="centerY" id="yzx-2u-JHJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="chooseDivideNum" destination="5qj-bR-XhK" id="hHL-oV-87Y"/>
+                <outlet property="fifth" destination="Sez-kU-R6J" id="S30-Vy-EGJ"/>
+                <outlet property="firstCount" destination="HgX-so-BOf" id="EBp-vv-Jq0"/>
+                <outlet property="fourthCount" destination="pXO-Bm-h13" id="3sY-gh-4VI"/>
+                <outlet property="secondCount" destination="Yl1-sJ-3jG" id="SdF-hg-65a"/>
+                <outlet property="sixth" destination="YS4-oW-0Nm" id="65b-7t-aKl"/>
+                <outlet property="thirdCount" destination="hFB-jY-qFf" id="Tmm-be-B7a"/>
+            </connections>
+            <point key="canvasLocation" x="167.5" y="169"/>
+        </tableViewCell>
+    </objects>
+</document>

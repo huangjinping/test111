@@ -1,0 +1,13 @@
+//
+//  HDLoginRagisterRequest.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/11/14.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDLoginRagisterRequest : NSObject
+
+@end

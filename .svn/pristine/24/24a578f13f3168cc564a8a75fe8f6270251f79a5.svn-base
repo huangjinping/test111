@@ -1,0 +1,25 @@
+//
+//  WHChooseWorkView.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/6/23.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHChooseWorkView.h"
+
+@implementation WHChooseWorkView
+
++ (id)view {
+    
+    return [[[NSBundle mainBundle] loadNibNamed:@"WHChooseWorkView" owner:nil options:nil] lastObject];
+    
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.autoresizingMask = UIViewAutoresizingNone;
+    }
+    return self;
+}
+
+@end

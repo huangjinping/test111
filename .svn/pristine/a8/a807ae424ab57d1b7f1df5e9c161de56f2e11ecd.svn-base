@@ -1,0 +1,17 @@
+//
+//  HDSumitOrderBack.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/31.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDSumitOrderBack : NSObject
+
+/** 1.订单id*/
+@property (nonatomic, strong) NSString * applyId;
+
+@property (nonatomic, strong) NSString * id;
+@end

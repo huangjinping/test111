@@ -1,0 +1,21 @@
+//
+//  HDFirstPageScoreCell.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/18.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "HDFirstPageModel.h"
+@interface HDFirstPageScoreCell : UITableViewCell
+@property (nonatomic, strong) HDFirstPageModel * firstPageModel;
+
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *levelLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
+@end

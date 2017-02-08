@@ -1,0 +1,44 @@
+
+
+#import "WHCheckModel.h"
+#import "HDPayBackCommodity.h"
+@implementation WHCheckModel
+
+
++ (instancetype)paresCheckWithDictionary:(NSDictionary *)dict{
+    return [[self alloc]initDealWithDictionary:dict];
+    
+}
+
+- (id)initDealWithDictionary:(NSDictionary *)dict{
+    if (self == [super init]) {
+        self.time = NULLOBJ([dict objectForKey:@"time"]);
+        self.paid = NULLOBJ([dict objectForKey:@"paid"]);
+        self.applyamount = NULLOBJ([dict objectForKey:@"applyamount"]);
+        self.debt = NULLOBJ([dict objectForKey:@"debt"]);
+        self.orderno = NULLOBJ([dict objectForKey:@"orderno"]);
+        self.list = [dict objectForKey:@"list"];
+        self.pic = NULLOBJ([dict objectForKey:@"pic"]);
+        self.commodityname = NULLOBJ([dict objectForKey:@"commodityname"]);
+        
+    }
+    return self;
+}
+
+
+- (void)setCommoditys:(NSArray *)commoditys{
+    
+    _commoditys = [HDPayBackCommodity mj_objectArrayWithKeyValuesArray:commoditys];
+}
+
+
+
+
+
+
+
+
+
+
+
+@end

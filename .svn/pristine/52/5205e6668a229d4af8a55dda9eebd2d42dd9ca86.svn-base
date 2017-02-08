@@ -1,0 +1,20 @@
+//
+//  HDHistoryPictureList.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/12.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDHistoryPictureList.h"
+#import "HDPictureModel.h"
+@implementation HDHistoryPictureList
+
+
+- (void)setPicList:(NSArray *)picList{
+
+
+    _picList = [HDPictureModel mj_objectArrayWithKeyValuesArray:picList];
+}
+
+@end

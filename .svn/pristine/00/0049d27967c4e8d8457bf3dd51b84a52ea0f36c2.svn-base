@@ -1,0 +1,18 @@
+//
+//  HDScanListModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/31.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDScanListModel.h"
+#import "WHQROrderModel.h"
+@implementation HDScanListModel
+
+- (void)setList:(NSMutableArray *)list{
+
+    _list = [WHQROrderModel mj_objectArrayWithKeyValuesArray:list];
+}
+
+@end

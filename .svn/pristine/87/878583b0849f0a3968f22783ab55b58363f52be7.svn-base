@@ -1,0 +1,20 @@
+//
+//  LDPaymentPasswordSureController.h
+//  ceshi
+//
+//  Created by 石伟浩 on 16/6/7.
+//  Copyright © 2016年 石伟浩. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface LDPaymentPasswordSureController : LDBaseUIViewController
+
+@property(nonatomic,copy) NSString * passWordText;
+/**
+ *  哪个流程"zhuce","xiadan","wode","xianjindai","anquanzhongxin"取值情况:四个字符串,
+ */
+@property (nonatomic,copy) NSString * fromeWhere;
+
+@property (nonatomic,copy)NSString * zaiciPassWord;
+@end

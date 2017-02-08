@@ -1,0 +1,15 @@
+//
+//  HDHistoryPictureController.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/6.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDBaseUIViewController.h"
+#import "WHSendOtherMateriaController.h"
+@interface HDHistoryPictureController : LDBaseUIViewController
+
+
+@property (nonatomic, strong) WHSendOtherMateriaController * sendMaterial;
+@end

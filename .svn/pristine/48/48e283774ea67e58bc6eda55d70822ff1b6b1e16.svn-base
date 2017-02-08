@@ -1,0 +1,631 @@
+//
+//  LDBankCardViewController.m
+//  HDJFKJ
+//
+//  Created by apple on 16/3/29.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDBankCardViewController.h"
+#import "LDBankResultModel.h"
+#import "WHBankAgreementController.h"
+#import "LTPickerView.h"
+#import "HDBankListModel.h"
+@interface LDBankCardViewController ()
+/**
+ *  卡号
+ */
+@property (nonatomic,strong) UITextField * cardNumber;
+//开户行
+@property (nonatomic, strong) UITextField * cardBankName;
+//开户行简称
+@property (nonatomic, strong) NSString * cardBankEnglish;
+/**
+ *  持卡人姓名
+ */
+@property (nonatomic,strong) UITextField * name;
+@property (nonatomic,strong) NSArray * resultArray;
+@property (nonatomic, strong) NSMutableArray * pickerDataSource;
+
+@property (nonatomic, strong) UIButton * agreeButton;
+
+@property (nonatomic,strong) SCCaptureCameraController * CameraController;
+
+@end
+
+@implementation LDBankCardViewController
+
+- (NSMutableArray *)pickerDataSource{
+    if (!_pickerDataSource) {
+        _pickerDataSource = [[NSMutableArray alloc]init];
+    }
+    return _pickerDataSource;
+
+}
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    self.navigationItem.title  =@"银行卡";
+    
+    self.view.backgroundColor = WHColorFromRGB(0xf0f0f0);
+    
+    [self creatSubView];
+    
+    NSNotificationCenter * center = [NSNotificationCenter defaultCenter];
+
+    [center addObserver:self selector:@selector(cancleButtonRemove) name:@"cancle1ButtonClick" object:nil];
+    
+    
+    [self requestBankList];
+    
+    
+    //消除第一响应者
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignFirstResponderForTextFiled:)];
+    [self.view addGestureRecognizer:tap];
+    
+}
+
+- (void)resignFirstResponderForTextFiled:(UITapGestureRecognizer *)tap{
+    
+    
+    [self.view endEditing:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+- (void)viewWillAppear:(BOOL)animated{
+//    [self prefersStatusBarHidden];
+    [UIApplication sharedApplication].statusBarHidden = NO;
+
+    [super viewWillAppear:animated];
+}
+- (void)cancleButtonRemove{
+    
+    [UIApplication sharedApplication].statusBarHidden = NO;
+
+    [self dismissViewControllerAnimated:YES completion:^{
+        [UIApplication sharedApplication].statusBarHidden = NO;
+//        [self prefersStatusBarHidden];
+        
+
+    }];
+}
+- (BOOL)prefersStatusBarHidden{
+
+    return NO;
+}
+/**
+ *  添加子控件
+ */
+- (void)creatSubView{
+    
+    UILabel * note = [UILabel new];
+    note.text =@"请绑定持卡人的银行卡，并选择开户行";
+    note.font = [UIFont systemFontOfSize:10];
+    note.alpha = 0.5;
+    [self.view addSubview:note];
+    
+    [note makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(10);
+        make.left.equalTo(self.view).offset(LDPadding);
+    }];
+    
+    //***********************持卡人*************************
+    //子view
+    UIView * subBackView = [[UIView alloc] init];
+    subBackView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:subBackView];
+    [subBackView makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(45);
+        make.top.equalTo(self.view).offset(30);
+    }];
+    //子View上面的分割线
+    UILabel * label1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, LDScreenWidth, 0.5)];
+    label1.backgroundColor = WHColorFromRGB(0xc8c7cc);
+    [subBackView addSubview:label1];
+    
+    UILabel * label2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 44.5, LDScreenWidth, 0.5)];
+    label2.backgroundColor = WHColorFromRGB(0xc8c7cc);
+    [subBackView addSubview:label2];
+    
+    
+    //持卡人
+    UILabel * hostCard = [UILabel new];
+    hostCard.text  =@"持卡人";
+    hostCard.font = [UIFont systemFontOfSize:15];
+    hostCard.textColor = WHColorFromRGB(0x051b28);
+    [subBackView addSubview:hostCard];
+    [hostCard makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(subBackView).offset(15);
+        make.width.equalTo(47);
+        make.height.equalTo(15);
+    }];
+    
+    //持卡人姓名
+    UITextField * name = [UITextField new];
+    self.name = name;
+    name.placeholder = @"请输入姓名";
+    name.font = [UIFont systemFontOfSize:15];
+    name.textColor = WHColorFromRGB(0x051b28);
+    [subBackView addSubview:name];
+    [name makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(hostCard);
+        make.left.equalTo(hostCard.right).offset(LDPadding);
+        make.height.equalTo(subBackView);
+        make.width.equalTo(200);
+    }];
+
+    
+    
+    
+    //************************开户行****************************
+    
+    
+    //子view
+    UIView * subBackView12 = [[UIView alloc] init];
+    subBackView12.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:subBackView12];
+    [subBackView12 makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(45);
+        make.top.equalTo(subBackView.bottom);
+        
+    }];
+    //子View上面的分割线
+    
+
+    
+    
+    //开户行
+    UILabel * cardNum12 = [UILabel new];
+    cardNum12.text  =@"开户行";
+    cardNum12.font = [UIFont systemFontOfSize:15];
+    [subBackView12 addSubview:cardNum12];
+    [cardNum12 makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.left.equalTo(subBackView12).offset(15);
+        make.width.equalTo(47);
+        make.height.equalTo(15);
+    }];
+    
+    //具体开户行名称
+    UITextField * cardNumber12 = [UITextField new];
+    self.cardBankName = cardNumber12;
+    cardNumber12.placeholder = @"请选择开户行";
+    cardNumber12.font = [UIFont systemFontOfSize:15];
+    cardNumber12.keyboardType = UIKeyboardTypeNumberPad;
+    [subBackView12 addSubview:cardNumber12];
+    [cardNumber12 makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(cardNum12);
+        make.left.equalTo(cardNum12.right).offset(LDPadding);
+        make.height.equalTo(subBackView12);
+        make.width.equalTo(260);
+    }];
+    //覆盖在textField上的button
+    UIButton * bankNameButton = [[UIButton alloc]initWithFrame:cardNum12.frame];
+    [bankNameButton addTarget:self action:@selector(selectBankName:) forControlEvents:UIControlEventTouchUpInside];
+    [subBackView12 addSubview:bankNameButton];
+    [bankNameButton makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(cardNum12);
+        make.left.equalTo(cardNum12.right).offset(LDPadding);
+        make.height.equalTo(subBackView12);
+        make.width.equalTo(260);
+    }];
+    
+    //**********************卡号***************************
+    //子view
+    UIView * subBackView2 = [[UIView alloc] init];
+    subBackView2.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:subBackView2];
+    [subBackView2 makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.equalTo(45);
+        make.top.equalTo(subBackView12.bottom);
+        
+    }];
+    //子View上面的分割线
+    UILabel * label21 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, LDScreenWidth, 0.5)];
+    label21.backgroundColor = WHColorFromRGB(0xc8c7cc);
+    [subBackView2 addSubview:label21];
+    
+    UILabel * label22 = [[UILabel alloc]initWithFrame:CGRectMake(0, 44.5, LDScreenWidth, 0.5)];
+    label22.backgroundColor = WHColorFromRGB(0xc8c7cc);
+    [subBackView2 addSubview:label22];
+    
+    
+    //卡号
+    UILabel * cardNum = [UILabel new];
+    cardNum.text  =@"卡号";
+    cardNum.font = [UIFont systemFontOfSize:15];
+    [subBackView2 addSubview:cardNum];
+    [cardNum makeConstraints:^(MASConstraintMaker *make) {
+
+        make.top.left.equalTo(subBackView2).offset(15);
+        make.width.equalTo(45);
+        make.height.equalTo(15);
+    }];
+    
+    //具体卡号
+    UITextField * cardNumber = [UITextField new];
+    self.cardNumber = cardNumber;
+    cardNumber.placeholder = @"请输入卡号";
+    cardNumber.font = [UIFont systemFontOfSize:15];
+    cardNumber.keyboardType = UIKeyboardTypeNumberPad;
+    [subBackView2 addSubview:cardNumber];
+    [cardNumber makeConstraints:^(MASConstraintMaker *make) {
+
+        make.centerY.equalTo(cardNum);
+        make.left.equalTo(cardNum.right).offset(LDPadding);
+        make.height.equalTo(subBackView2);
+        make.width.equalTo(260);
+    }];
+    
+    
+    UIButton * saoMiaobutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [subBackView2 addSubview:saoMiaobutton];
+    [saoMiaobutton setImage:[UIImage imageNamed:@"iconfont-camera"] forState:UIControlStateNormal];
+    [saoMiaobutton makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(cardNum);
+        make.right.equalTo(subBackView2).offset(-LDPadding);
+        make.height.equalTo(subBackView2);
+        make.width.equalTo(40);
+    }];
+    
+    [saoMiaobutton addTarget:self action:@selector(saoMiaobuttonClick) forControlEvents:UIControlEventTouchUpInside];
+    //*******************************************
+    
+
+    //协议
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundImage:[UIImage imageNamed:@"用户协议框"] forState:UIControlStateNormal];
+    [button setBackgroundImage:[UIImage imageNamed:@"同意协议"] forState:UIControlStateSelected];
+    button.selected = YES;
+    self.agreeButton = button;
+    [button addTarget:self action:@selector(leftAgreeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:button];
+    [button makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(LDPadding);
+        make.top.equalTo(subBackView2.bottom).offset(LDPadding);
+        
+    }];
+
+    //同意
+    UILabel * agreeLable = [UILabel new];
+    agreeLable.font = [UIFont systemFontOfSize:10];
+    agreeLable.text = @"同意";
+    [self.view addSubview:agreeLable];
+    [agreeLable makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(button.right).offset(5);
+        make.centerY.equalTo(button);
+        
+    }];
+    
+    //用户协议
+    UIButton * agreeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:agreeButton];
+    [agreeButton setTitle:@"<<银行卡用户服务协议>>" forState:UIControlStateNormal];
+    [agreeButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    agreeButton.titleLabel.font = [UIFont systemFontOfSize:10];
+    [agreeButton addTarget:self action:@selector(agreeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [agreeButton makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(agreeLable.right).offset(10);
+        make.centerY.equalTo(agreeLable);
+    }];
+
+    
+    //下一步按钮
+    UIButton * nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:nextButton];
+    nextButton.backgroundColor = WHColorFromRGB(0x4279d6);
+    [nextButton setTitle:@"提交" forState:UIControlStateNormal];
+    [nextButton addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    nextButton.layer.cornerRadius = 5.0;
+    nextButton.layer.borderWidth = 0.0;
+    [nextButton makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(LDPadding);
+        make.right.equalTo(self.view).offset(-LDPadding);
+        make.height.equalTo(45);
+        make.top.equalTo(agreeButton.bottom).offset(LDPadding);
+    }];
+}
+
+- (void)agreeButtonClick{
+    
+    WHBankAgreementController * webView = [[WHBankAgreementController alloc]initWithURL:@"http://123.56.233.192/appagree/hudongBank.html"];
+    [self.navigationController pushViewController:webView animated:YES];
+}
+- (void)leftAgreeButtonClick:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    LDLogFunc;
+    
+}
+/**
+ *  下一步,将姓名和卡号发送到后端,
+ */
+- (void)nextButtonClick{
+    
+    if (self.cardNumber.text.length==0) {
+    
+        [HDLoading showFailViewWithString:@"请输入银行卡号"];
+    }
+    else if (!self.agreeButton){
+
+        [HDLoading showFailViewWithString:@"请您阅读协议并同意"];
+    }
+    else if (self.cardBankName.text.length == 0){
+        [HDLoading showFailViewWithString:@"请选择开户行"];
+    }
+    else{
+        [self.view endEditing:YES];
+        [self sendRequest];
+    }
+    
+    
+
+}
+
+//网络请求(姓名卡号发送到后端,返回银行卡类型),
+- (void)sendRequest{
+    
+    [HDLoading showWithImageWithString:@"正在添加"];
+    
+    NSString * url = [NSString stringWithFormat:@"%@person/bankcard/add",KBaseUrl];
+    
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    
+    [params setObject:NULLSTR([LDUserInformation sharedInstance].token) forKey:@"token"];
+    
+    [params setObject:NULLSTR([LDUserInformation sharedInstance].UserId) forKey:@"id"];
+
+    //去除扫描证件带来的空格
+    NSString * sValid = [self.cardNumber.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    //卡号
+    [params setObject:sValid forKey:@"cardNo"];
+  
+     //姓名
+    [params setObject:self.name.text forKey:@"holder"];
+    //开户行
+    [params setObject:self.cardBankEnglish forKey:@"bankCode"];
+    
+    LDLog(@"%@-%@-",self.cardNumber.text,self.name.text);
+    
+    [[LDNetworkTools sharedTools]request:POST url:url params:params callback:^(id response, NSError *error) {
+        if(error != nil){
+           
+             /** 1.打印请求错误信息*/
+            NSLog(@"%@",error);
+            
+            /** 2.请求错误提示  */
+            [HDLoading showFailViewWithString:@"网络错误"];
+        }else{
+            
+            //返回码,状态码信息.
+            LDBankResultModel * model = [LDBankResultModel mj_objectWithKeyValues:response];
+            LDLog(@"model.code%@---model.message%@",model.code,model.message);
+
+            if ([model.code isEqualToString:@"0"]) {
+                [HDLoading dismissHDLoading];
+                _gobackBlock();
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [HDLoading showFailViewWithString:model.message];
+                
+            }
+            
+
+
+            
+        }
+    }];
+}
+
+
+
+
+
+- (BOOL)checkCardNumber{
+    
+    if ((self.cardNumber.text.length > 0) && ([self.cardNumber.text isCreditCard]))  {
+        
+        return YES;
+        
+    }else{
+        
+        [self sendRequest];
+        return NO;
+    }
+    
+
+}
+
+//选择开户行
+- (void)selectBankName:(UIButton *)button{
+    [self.view endEditing:YES];
+    
+    if (self.resultArray.count > 0) {
+        LTPickerView* pickerView = [LTPickerView new];
+        
+        pickerView.dataSource = self.pickerDataSource;
+        
+        //设置要显示的数据
+        pickerView.defaultStr = @"1";//默认选择的数据
+        [pickerView show];//显示
+        //回调block
+        
+        __weak typeof(self) weakSelf = self;
+        
+        pickerView.block = ^(LTPickerView* obj,NSString* str,int num){
+            //obj:LTPickerView对象
+            //str:选中的字符串
+            //num:选中了第几行
+            weakSelf.cardBankName.text = str;
+            
+            HDBankListModel * listModel = weakSelf.resultArray[num];
+            
+            weakSelf.cardBankEnglish = listModel.bankCode;
+            
+        };
+        pickerView.closeblock = ^{};
+    }
+//    LTPickerView* pickerView = [LTPickerView new];
+    
+    
+    
+//    NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
+//    NSArray * bankEnglishArray = nil;
+//    //互分期
+//    if ([identifier isEqualToString:@"cn.hdfex.hufenqi"]) {
+//    
+//        pickerView.dataSource = @[@"北京银行",@"中国工商银行",@"中国银行",@"中国建设银行",@"兴业银行",@"中国光大银行",@"中国邮政储蓄银行"];
+//        
+//       bankEnglishArray = @[@"BOB",@"ICBC",@"BOC",@"CBC",@"CIB",@"CEB",@"PSBC"];
+//        
+//    }//贷鱼
+//    else if([identifier isEqualToString:@"cn.hdfex.daiyu"]){
+//        
+//        pickerView.dataSource = @[@"北京银行",@"中国建设银行"];
+//        
+//        bankEnglishArray = @[@"BOB",@"CBC"];
+//        
+//    }else{//现金贷
+//        
+//        pickerView.dataSource = @[@"北京银行",@"中国建设银行"];
+//        
+//        bankEnglishArray = @[@"BOB",@"CBC"];
+//    
+//    }
+
+    //设置要显示的数据
+//    pickerView.defaultStr = @"1";//默认选择的数据
+//    [pickerView show];//显示
+//    //回调block
+//    pickerView.block = ^(LTPickerView* obj,NSString* str,int num){
+//        //obj:LTPickerView对象
+//        //str:选中的字符串
+//        //num:选中了第几行
+//        self.cardBankName.text = str;
+//        self.cardBankEnglish = bankEnglishArray[num];
+//        
+//    };
+//    pickerView.closeblock = ^{};
+}
+
+- (void)saoMiaobuttonClick{
+
+    
+    self.CameraController = [[SCCaptureCameraController alloc] init];
+    
+    self.CameraController.scNaigationDelegate = self;
+    
+    self.CameraController.iCardType = TIDBANK;
+    
+    self.CameraController.IsBankCark = YES;
+    
+    self.CameraController.isDisPlayTxt = NO;
+  
+    [self presentViewController:self.CameraController animated:YES completion:nil];
+
+}
+
+// 银行卡回调接口
+- (void)sendBankCardInfo:(NSString *)bank_num BANK_NAME:(NSString *)bank_name BANK_ORGCODE:(NSString *)bank_orgcode BANK_CLASS:(NSString *)bank_class CARD_NAME:(NSString *)card_name
+{
+    
+    NSString *astring = [[NSString alloc] initWithString:[NSString stringWithFormat:@"卡号  ： %@\n发卡行 ： %@\n机构代码： %@\n卡种  ： %@\n卡名  ： %@\n",bank_num,bank_name,bank_orgcode,bank_class,card_name]];
+    NSLog(@"BANK INFO = %@\n",astring);
+    self.cardNumber.text = bank_num;
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
+}
+- (void)sendBankCardImage:(UIImage *)BankCardImage // 获取银行卡图片
+{
+    
+    
+    NSLog(@"name = %@",BankCardImage);
+    self.CameraController.captureManager = nil;
+    self.CameraController.drawView = nil;
+    self.CameraController = nil;
+    
+    
+}
+-(void)dealloc{
+    self.CameraController.captureManager = nil;
+    self.CameraController.drawView = nil;
+    self.CameraController = nil;
+
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"cancle1ButtonClick" object:nil];
+    
+    
+    LDLog(@"销毁添加银行卡控制器");
+    
+}
+
+/** 获取银行列表 */
+- (void)requestBankList{
+    
+    [HDLoading showWithImageWithString:@"正在加载"];
+    
+    NSString * url = [NSString stringWithFormat:@"%@person/getBankList",KBaseUrl];
+    
+    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    
+    [params setObject:NULLSTR([LDUserInformation sharedInstance].token) forKey:@"token"];
+    
+    [params setObject:NULLSTR([LDUserInformation sharedInstance].UserId) forKey:@"id"];
+    
+    if ([HDSubmitOrder shardSubmitOrder].businessId != nil) {
+        [params setObject:[HDSubmitOrder shardSubmitOrder].businessId forKey:@"businessId"];
+    }
+    
+    [[LDNetworkTools sharedTools]request:POST url:url params:params callback:^(id response, NSError *error) {
+        if(error != nil){
+            
+            /** 1.打印请求错误信息*/
+            NSLog(@"%@",error);
+            
+            /** 2.请求错误提示  */
+            [HDLoading showFailViewWithString:@"网络错误"];
+        }else{
+            
+            NSLog(@"%@",response);
+            
+            //返回码,状态码信息.
+            LDBackInformation * model = [LDBackInformation mj_objectWithKeyValues:response];
+            
+            if ([model.code isEqualToString:@"0"]) {
+                [HDLoading dismissHDLoading];
+                
+                if (model.result != nil) {
+                    self.resultArray = [HDBankListModel mj_objectArrayWithKeyValuesArray:[model.result objectForKey:@"list"]];
+                    
+                    for (HDBankListModel * listModel in self.resultArray) {
+                        [self.pickerDataSource addObject:listModel.bankName];
+                    }
+                }
+                
+                
+            }else{
+                [HDLoading showFailViewWithString:model.message];
+                
+            }
+            
+            
+            
+            
+        }
+    }];
+}
+
+
+
+@end

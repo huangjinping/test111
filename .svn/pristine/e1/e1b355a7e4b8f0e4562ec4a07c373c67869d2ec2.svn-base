@@ -1,0 +1,24 @@
+//
+//  WHNoneGoodsView.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/26.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHNoneGoodsView.h"
+
+@implementation WHNoneGoodsView
+
++ (id)view {
+    
+    return [[[NSBundle mainBundle] loadNibNamed:@"WHNoneGoodsView" owner:nil options:nil] lastObject];
+    
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.autoresizingMask = UIViewAutoresizingNone;
+    }
+    return self;
+}
+@end

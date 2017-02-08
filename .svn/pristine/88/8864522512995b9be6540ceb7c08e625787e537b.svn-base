@@ -1,0 +1,195 @@
+//
+//  LDTabBarController.m
+//  北京互动金服科技
+//
+//  Created by apple on 16/2/23.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDTabBarController.h"
+#import "WHNewFirstController.h"
+#import "LDDiscoverViewController.h"
+#import "LDThirdViewController.h"
+#import "LDForthViewController.h"
+#import "LDTabBarView.h"
+#import "LDDiscoverViewController.h"
+#import "LDNavgationVController.h"
+#import "QRViewController.h"
+
+#import "LDFirstViewController.h"
+#import "LDNewViewController.h"
+#import "LDNewMineVC.h"
+@interface LDTabBarController ()<UITabBarDelegate>
+@property (nonatomic,weak) UIButton * publishButton;
+@end
+
+@implementation LDTabBarController
+
+
+//- (id) init
+//{
+//    self = [super init];
+//
+//    if (self) {
+//
+//        CGRect rect = CGRectMake(0, -16, self.tabBar.frame.size.width, self.tabBar.frame.size.height +15);
+//
+//        UIGraphicsBeginImageContext(rect.size);
+//
+//        CGContextRef context = UIGraphicsGetCurrentContext();
+//        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+//
+//        CGContextFillRect(context, rect);
+//        UIImage *imgX = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+//        [self.tabBar setBackgroundImage:imgX];
+//        [self.tabBar setShadowImage:imgX];
+//
+//        //方法一
+//        UIImageView *img = nil;
+//        if (LDScreenWidth == 320) {
+//            img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IPHONE5@2x.png"]];
+//            img.frame = CGRectMake(0, -13, self.tabBar.frame.size.width, self.tabBar.frame.size.height +13);
+//        }
+//        else if (LDScreenWidth == 375){
+//            img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"iphone6@2x.png"]];
+//            img.frame = CGRectMake(0, -16, self.tabBar.frame.size.width, self.tabBar.frame.size.height +15);
+//        }else{
+//            img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IPHONE6P@2x.png"]];
+//            img.frame = CGRectMake(-2, -21, LDScreenWidth+2, self.tabBar.frame.size.height +21);
+//        }
+//
+//        img.contentMode = UIViewContentModeScaleToFill;
+//        img.frame = CGRectOffset(img.frame, 0, 1);
+//        [[self tabBar] insertSubview:img atIndex:0];
+//        self.view.backgroundColor = [UIColor clearColor];
+//
+//
+//
+//
+//    }
+//    return self;
+//}
+
++ (void)initialize
+{
+    
+    
+    
+    // 通过appearance统一设置所有UITabBarItem的文字属性
+    // 后面带有UI_APPEARANCE_SELECTOR的方法, 都可以通过appearance对象来统一设置
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:12];
+    attrs[NSForegroundColorAttributeName] = [UIColor grayColor];
+    
+    NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
+    selectedAttrs[NSFontAttributeName] = attrs[NSFontAttributeName];
+    selectedAttrs[NSForegroundColorAttributeName] = [UIColor darkGrayColor];
+    
+    UITabBarItem *item = [UITabBarItem appearance];
+    
+    [item setTitleTextAttributes:attrs forState:UIControlStateNormal];
+    
+    [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
+    if ([identifier isEqualToString:@"cn.hdfex.hufenqi"]) {
+        [self fenfujunTabbar];
+    }
+    else{
+        [self daiyuTabbar];
+    }
+    
+    [self controlStateSelected];
+    
+    self.tabBar.barTintColor = [UIColor whiteColor];
+    
+}
+//分付君tabbar
+- (void)fenfujunTabbar{
+    // 添加子控制器
+    [self setupChildVc:[[WHNewFirstController alloc] init] title:@"分付君" image:@"shouye_2.0.4_default" selectedImage:@"shouye_2.0.4"];
+    
+//    [self setupChildVc:[[LDFirstViewController alloc] init] title:@"分期" image:@"fenqi_2.0.4_default" selectedImage:@"fenqi_2.0.4"];
+    
+    [self setupChildVc:[[LDThirdViewController alloc] init] title:@"账单" image:@"zhangdan_2.0.4_default" selectedImage:@"zhangdan_2.0.4"];
+    
+    [self setupChildVc:[[LDNewMineVC alloc] init] title:@"我的" image:@"wode_2.0.4_default" selectedImage:@"wode_2.0.4"];
+}
+//贷鱼tabbar
+- (void)daiyuTabbar{
+    //添加自控制器
+    [self setupChildVc:[[LDNewViewController alloc] init] title:@"首页" image:@"home" selectedImage:@"shouye"];
+    
+    //[self setupChildVc:[[LDFirstViewController alloc] init] title:@"分期" image:@"分期" selectedImage:@"分期选中"];
+    
+    [self setupChildVc:[[LDThirdViewController alloc] init] title:@"账单" image:@"账单" selectedImage:@"还款选中时1"];
+    
+    [self setupChildVc:[[LDForthViewController alloc] init] title:@"我" image:@"wode-weixuanzhong" selectedImage:@"wode"];
+}
+
+/**
+ *  创建子控制器
+ *
+ *  @param vc            控制器名称
+ *  @param title         tabBarItem 文字
+ *  @param image         tabBarItem 默认图片
+ *  @param selectedImage tabBarItem 选中图片
+ */
+- (void)setupChildVc:(UIViewController *)vc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage{
+    
+    //设置导航栏标题
+    vc.navigationItem.title = title;
+    //设置图片和文字
+    vc.tabBarItem.title = title;
+    
+    vc.tabBarItem.image = [UIImage imageNamed:image];
+    
+    vc.tabBarItem.selectedImage = [UIImage imageNamed:selectedImage];
+    //设置tabbar字体大小
+    [vc.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [UIFont fontWithName:title size:10.0], NSFontAttributeName, nil]
+                                 forState:UIControlStateNormal];
+    
+    
+    //包装一个导航控制器
+    LDNavgationVController * nav = [[LDNavgationVController alloc] initWithRootViewController:vc];
+    
+    [self addChildViewController:nav];
+    
+    
+}
+- (void)controlStateSelected{
+    
+    UIColor *titleHighlightedColor = WHColorFromRGB(0x4279d6);
+   
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:titleHighlightedColor,NSForegroundColorAttributeName,nil] forState:UIControlStateSelected];
+}
+
+
+//监听Tabbar点击事件，
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    
+    if ([item.title isEqualToString:@"分期"]){
+        [WHTongJIRequest sendTongjiRequestWithBusinessId:nil oprType:FQSY];
+    }
+    if ([item.title isEqualToString:@"账单"]) {
+        [WHTongJIRequest sendTongjiRequestWithBusinessId:nil oprType:ZDSY];
+    }
+    if ([item.title isEqualToString:@"我的"]) {
+        [WHTongJIRequest sendTongjiRequestWithBusinessId:nil oprType:WDSY];
+    }
+    
+    
+    NSLog(@"%@",item.title);
+    
+    
+}
+
+@end

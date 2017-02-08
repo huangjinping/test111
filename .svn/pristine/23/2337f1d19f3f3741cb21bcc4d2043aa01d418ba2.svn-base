@@ -1,0 +1,25 @@
+//
+//  WHBaseInfoView.m
+//  ceshi
+//
+//  Created by 石伟浩 on 16/5/17.
+//  Copyright © 2016年 石伟浩. All rights reserved.
+//
+
+#import "WHBaseInfoView.h"
+
+@implementation WHBaseInfoView
+
++ (id)view {
+    
+    return [[[NSBundle mainBundle] loadNibNamed:@"WHBaseInfoView" owner:nil options:nil] lastObject];
+    
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.autoresizingMask = UIViewAutoresizingNone;
+    }
+    return self;
+}
+
+@end

@@ -1,0 +1,186 @@
+//
+//  WHComfierOrderPassword.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/12.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHComfierOrderPassword.h"
+#import "LDSubmitVCController.h"
+#import "WHUserLoginModel.h"
+#import "TZMD5.h"
+@interface WHComfierOrderPassword ()<UITextFieldDelegate>
+@property (nonatomic, strong) WHUserLoginModel * user;
+
+@property (nonatomic, strong) NSMutableArray * labelArray;
+
+@end
+
+@implementation WHComfierOrderPassword
+
+- (NSMutableArray *)labelArray{
+    
+    if (!_labelArray) {
+        
+        _labelArray = [[NSMutableArray alloc]init];
+    }
+    return _labelArray;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    self.user = [WHUserLoginModel createuserInfoModel];
+    
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"确认支付";
+    
+    self.view.backgroundColor = WHColorFromRGB(0xf0f0f0);
+    
+    self.textField.delegate = self;
+    self.nextButton.userInteractionEnabled = NO;
+    [self.nextButton addTarget:self action:@selector(clickNestButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self createViewLayerWithView:self.p1];
+    [self createViewLayerWithView:self.p2];
+    [self createViewLayerWithView:self.p3];
+    [self createViewLayerWithView:self.p4];
+    [self createViewLayerWithView:self.p5];
+    [self createViewLayerWithView:self.p6];
+    
+    self.textField.keyboardType = UIKeyboardTypeNumberPad;
+    [self.textField becomeFirstResponder];
+    [self.textField addTarget:self action:@selector(UIControlEventEditingChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+}
+
+- (void)createViewLayerWithView:(UILabel *)view{
+    
+    
+    view.layer.cornerRadius = 8.0;
+    view.layer.borderColor = [WHColorFromRGB(0x051b28) CGColor];
+    view.layer.borderWidth = 8.0f;
+    
+    view.hidden = YES;
+    [self.labelArray addObject:view];
+}
+
+
+- (void)clickNestButton:(UIButton *)sender{
+    [self.view resignFirstResponder];
+    
+    if (!(self.textField.text.length == 6)) {
+        
+        [HDLoading showFailViewWithString:@"请输入正确的密码"];
+        
+    }else{
+        
+        [HDLoading showWithImageWithString:@"正在提交"];
+        
+        NSLog(@"%@",[TZMD5 md5:self.textField.text]);
+        
+        NSString * str = [NSString stringWithFormat:@"%@order/pay",KBaseUrl ];
+        NSMutableDictionary * params = [NSMutableDictionary dictionary];
+        [params setObject:[LDUserInformation sharedInstance].UserId forKey:@"id"];
+        [params setObject:[LDUserInformation sharedInstance].token forKey:@"token"];
+        [params setObject:[TZMD5 md5:self.textField.text] forKey:@"payPassword"];
+        [params setObject:self.orderDetailModel.orderNo forKey:@"applyId"];
+                
+        [[LDNetworkTools sharedTools] request:POST url:str params:params callback:^(id response, NSError *error) {
+            if (error != nil) {
+                 /** 1.打印请求错误信息*/
+            NSLog(@"%@",error);
+            
+            /** 2.请求错误提示  */
+            [HDLoading showFailViewWithString:@"网络错误"];
+            }
+            else
+            {
+                /** 3.解析返回数据  */
+                LDBackInformation * backInfo = [LDBackInformation mj_objectWithKeyValues:response];
+                NSString * code = [response objectForKey:@"code"] ;
+                
+                
+                /** 4.code == 0请求成功 */
+                if ([backInfo.code isEqualToString:@"0"]) {
+                    [HDLoading dismissHDLoading];
+                    
+                    LDSubmitVCController * submit = [[LDSubmitVCController alloc]init];
+                    submit.fromClass = @"querenzhifu";
+                    
+                    submit.applyId = self.orderDetailModel.orderNo;
+                    [self.navigationController pushViewController:submit animated:YES];
+                    
+                }else{
+                    // 显示失败信息
+
+                    [HDLoading showFailViewWithString:backInfo.message];
+                    self.textField.text = @"";
+                    
+                    self.p1.hidden = YES;
+                    self.p2.hidden = YES;
+                    self.p3.hidden = YES;
+                    self.p4.hidden = YES;
+                    self.p5.hidden = YES;
+                    self.p6.hidden = YES;
+                    
+                    [self.textField becomeFirstResponder];
+                    
+                }
+                
+                LDLog(@"%@",response);
+            }
+        }];
+        
+    }
+
+}
+
+
+- (IBAction)clickPasswordbutton:(UIButton *)sender {
+    [self.textField becomeFirstResponder];
+    
+}
+
+//textField的方法
+- (void)UIControlEventEditingChanged:(UITextField *)textField{
+    
+    
+    for (int i = 0; i < 6; i ++) {
+        UILabel * label = self.labelArray[i];
+        if (i < textField.text.length) {
+            label.hidden = NO;
+        }
+        else{
+            label.hidden = YES;
+        }
+    }
+    
+    
+    if (self.textField.text.length == 6) {
+        
+        [self.textField resignFirstResponder];
+        
+        [self.nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.nextButton setBackgroundColor:WHColorFromRGB(0xd33a31)];
+        
+        self.nextButton.userInteractionEnabled = YES;
+        
+    }else{
+        [self.nextButton setTitleColor:WHColorFromRGB(0xa5a5a5) forState:UIControlStateNormal];
+        [self.nextButton setBackgroundColor:WHColorFromRGB(0xdddddd)];
+        
+        self.nextButton.userInteractionEnabled = NO;
+    
+    }
+
+
+}
+
+@end

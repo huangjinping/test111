@@ -1,0 +1,23 @@
+//
+//  WHPasswordView.h
+//  ceshi
+//
+//  Created by 石伟浩 on 16/5/9.
+//  Copyright © 2016年 石伟浩. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+typedef void(^ComplationBlock)(NSString * password);
+@interface WHPasswordView : UIView<UITextFieldDelegate>
+
+@property (nonatomic, strong) UITextField * textField;
+
+@property (nonatomic, strong) UIView * passwordView;
+
+@property (nonatomic, strong) NSMutableArray * pointArray;
+
+@property (nonatomic, strong) UIButton * button;
+
+@property (nonatomic, copy) ComplationBlock complationBlock;
+
+@end

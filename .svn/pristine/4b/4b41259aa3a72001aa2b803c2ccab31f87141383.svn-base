@@ -1,0 +1,13 @@
+//
+//  HDMineMoreController.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/19.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDBaseUIViewController.h"
+
+@interface HDMineMoreController : LDBaseUIViewController
+
+@end

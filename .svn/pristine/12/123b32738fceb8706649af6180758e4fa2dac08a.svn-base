@@ -1,0 +1,25 @@
+//
+//  HDMaterialModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/31.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDMaterialModel.h"
+#import "HDPictureModel.h"
+@implementation HDMaterialModel
+
+- (void)setLiushui:(NSArray *)liushui{
+    _liushui = [HDPictureModel mj_objectArrayWithKeyValuesArray:liushui];
+}
+
+- (void)setZichan:(NSArray *)zichan{
+    _zichan = [HDPictureModel mj_objectArrayWithKeyValuesArray:zichan];
+}
+
+- (void)setOthers:(NSArray *)others{
+    _others = [HDPictureModel mj_objectArrayWithKeyValuesArray:others];
+}
+
+@end

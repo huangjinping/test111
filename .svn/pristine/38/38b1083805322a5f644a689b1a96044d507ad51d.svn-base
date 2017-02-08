@@ -1,0 +1,13 @@
+//
+//  HDBaseButton.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/1.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface HDBaseButton : UIButton
+@property (nonatomic, strong) NSString * tagString;
+@end

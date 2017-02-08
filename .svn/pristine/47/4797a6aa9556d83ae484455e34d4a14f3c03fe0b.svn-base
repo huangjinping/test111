@@ -1,0 +1,13 @@
+//
+//  WHPopAnimation.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/7/22.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface WHPopAnimation : NSObject<UIViewControllerAnimatedTransitioning>
+
+@end

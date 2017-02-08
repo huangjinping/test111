@@ -1,0 +1,15 @@
+//
+//  HDRegisterModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/30.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDRegisterModel.h"
+
+@implementation HDRegisterModel
+
+
+
+@end

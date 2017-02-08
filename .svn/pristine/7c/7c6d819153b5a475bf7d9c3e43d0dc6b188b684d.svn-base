@@ -1,0 +1,15 @@
+//
+//  HDHalfbanKCell.h
+//  ceshi
+//
+//  Created by 石伟浩 on 16/8/30.
+//  Copyright © 2016年 石伟浩. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface HDHalfbanKCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *leftLabel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *rightImageView;
+@end

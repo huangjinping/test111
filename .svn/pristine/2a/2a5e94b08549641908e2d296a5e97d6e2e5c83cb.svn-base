@@ -1,0 +1,15 @@
+//
+//  WHSendImageRequest.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/10.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface WHSendImageRequest : NSObject
+
++(void)SendImageRequestURL:(NSString *)str dict:(NSDictionary *)params data:(NSData *)imageData name:(NSString *)imageName;
+
+@end

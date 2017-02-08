@@ -1,0 +1,15 @@
+//
+//  HDPictureModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/4.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDPictureModel.h"
+
+@implementation HDPictureModel
+
+
+
+@end

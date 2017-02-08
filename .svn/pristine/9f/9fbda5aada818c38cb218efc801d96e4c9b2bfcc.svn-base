@@ -1,0 +1,21 @@
+//
+//  HDPictureModel.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/4.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDPictureModel : NSObject
+
+/** 图片url*/
+@property (nonatomic, strong) NSString * picUrl;
+
+/** 图片id */
+@property (nonatomic, strong) NSString * picId;
+
+/** 缩略图 */
+@property (nonatomic, strong) UIImage * thumbnail;
+@end

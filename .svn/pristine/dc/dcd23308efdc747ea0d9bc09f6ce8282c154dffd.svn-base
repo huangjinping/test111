@@ -1,0 +1,19 @@
+//
+//  HDFirstPageModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/19.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDFirstPageModel.h"
+
+@implementation HDFirstPageModel
+
+
+- (void)setBanner:(NSArray *)banner{
+
+    _banner = [HDFirstPageBanner mj_objectArrayWithKeyValuesArray:banner];
+}
+
+@end

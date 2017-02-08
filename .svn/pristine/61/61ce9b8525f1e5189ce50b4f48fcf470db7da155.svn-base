@@ -1,0 +1,16 @@
+//
+//  HDAddressBookCell.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/27.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "WHAddressBookModel.h"
+@interface HDAddressBookCell : UITableViewCell
+
+@property (nonatomic, strong) WHAddressBookModel * addBookModel;
+
+
+@end

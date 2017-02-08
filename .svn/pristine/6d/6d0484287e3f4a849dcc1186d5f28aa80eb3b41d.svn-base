@@ -1,0 +1,17 @@
+//
+//  WHPersonProcessTopView.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/6/22.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WHPersonProcessTopView : UIView
+
++ (id)view;
+- (void)initImageNameWithIconImageNameArr:(NSArray *)iconImageNameArr arrowImageNameArr:(NSArray *)arrowImageNameArr;
+@property (nonatomic, strong) NSArray * iconImageArr;
+@property (nonatomic, strong) NSArray * arrowImageArr;
+@end

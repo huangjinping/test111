@@ -1,0 +1,25 @@
+//
+//  HDHistoryPictureList.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/12.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDHistoryPictureList : NSObject
+
+@property (nonatomic, strong) NSString * uploadDate;
+
+@property (nonatomic, strong) NSArray * picList;
+
+@property (nonatomic, strong) NSString * createDate;
+
+@property (nonatomic, strong) NSString * id;
+
+@property (nonatomic, strong) NSString * remarks;
+
+@property (nonatomic, strong) NSString * updateDate;
+
+@end

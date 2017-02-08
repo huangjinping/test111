@@ -1,0 +1,17 @@
+//
+//  WHTiJiaoControllrt.h
+//  GuangShengXing
+//
+//  Created by 石伟浩 on 16/4/7.
+//  Copyright © 2016年 史国涛. All rights reserved.
+//
+//
+#import <UIKit/UIKit.h>
+
+@interface WHTiJiaoControllrt : LDBaseUIViewController
+
+
+@property (nonatomic, strong) NSString * fromWhere;
+
+@property (nonatomic, strong) NSMutableDictionary * params;
+@end

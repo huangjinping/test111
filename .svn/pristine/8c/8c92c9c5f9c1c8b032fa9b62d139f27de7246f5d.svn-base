@@ -1,0 +1,42 @@
+//
+//  WHImagPickerController.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/7/26.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHImagPickerController.h"
+
+@interface WHImagPickerController ()
+
+@end
+
+@implementation WHImagPickerController
+
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+   
+    
+
+    
+    
+    
+}
+
+
+
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+@end

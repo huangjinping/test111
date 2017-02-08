@@ -1,0 +1,29 @@
+
+#import <UIKit/UIKit.h>
+
+@interface WHPayBackCell : UITableViewCell
+//还款期数描述
+@property (weak, nonatomic) IBOutlet UILabel *periodDescibeLabel;
+//剩余天数
+@property (weak, nonatomic) IBOutlet UILabel *remaindayLabel;
+//商品图片
+@property (weak, nonatomic) IBOutlet UIImageView *picImageView;
+//商品名称
+@property (weak, nonatomic) IBOutlet UILabel *commoditynameLabel;
+//订单号
+@property (weak, nonatomic) IBOutlet UILabel *ordernoLabel;
+//下单时间
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+//本月还款金额
+@property (weak, nonatomic) IBOutlet UILabel *perioddebtLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *huankuantishiLabel;
+
+
+
+
+
+
+
+
+@end

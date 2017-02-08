@@ -1,0 +1,24 @@
+//
+//  HDHalfbanKCell.m
+//  ceshi
+//
+//  Created by 石伟浩 on 16/8/30.
+//  Copyright © 2016年 石伟浩. All rights reserved.
+//
+
+#import "HDHalfbanKCell.h"
+
+@implementation HDHalfbanKCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

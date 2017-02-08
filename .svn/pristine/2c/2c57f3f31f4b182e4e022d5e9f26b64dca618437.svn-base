@@ -1,0 +1,15 @@
+//
+//  HDHistoryPictureModel.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/9/12.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDHistoryPictureModel : NSObject
+
+@property (nonatomic, strong) NSArray * others;
+
+@end

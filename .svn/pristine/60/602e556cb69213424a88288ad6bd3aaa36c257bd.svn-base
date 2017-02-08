@@ -1,0 +1,13 @@
+//
+//  HDBankListModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/11/8.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDBankListModel.h"
+
+@implementation HDBankListModel
+
+@end

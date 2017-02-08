@@ -1,0 +1,17 @@
+//
+//  WHCashLoanFirstView.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/9.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WHCashLoanFirstView : UIView
+//贷款金额TextFelid
+@property (weak, nonatomic) IBOutlet UITextField * cashMoneyTextFiled;
+
++ (id)view;
+
+@end

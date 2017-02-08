@@ -1,0 +1,13 @@
+//
+//  WHWithOutOrderController.h
+//  MerchantEdition
+//
+//  Created by 石伟浩 on 16/7/11.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "LDBaseUIViewController.h"
+
+@interface WHWithOutOrderController : LDBaseUIViewController
+
+@end

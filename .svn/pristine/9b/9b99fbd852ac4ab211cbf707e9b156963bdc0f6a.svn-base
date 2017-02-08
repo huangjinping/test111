@@ -1,0 +1,18 @@
+//
+//  WHBankAgreementController.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/27.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface WHBankAgreementController : LDBaseUIViewController
+@property(nonatomic,copy)NSString * mUrl;
+@property(nonatomic,strong)NSURLRequest * request;
+@property(nonatomic,strong)UIWebView * myWebView;
+
+
+-(instancetype)initWithURL:(NSString *)url;
+@end

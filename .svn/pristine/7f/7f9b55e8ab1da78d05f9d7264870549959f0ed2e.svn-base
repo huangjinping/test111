@@ -1,0 +1,13 @@
+//
+//  WHAddressBookModel.m
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/4/21.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "WHAddressBookModel.h"
+
+@implementation WHAddressBookModel
+
+@end

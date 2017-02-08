@@ -1,0 +1,19 @@
+//
+//  HDAreaModel.h
+//  MerchantEdition
+//
+//  Created by 石伟浩 on 16/11/29.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDAreaModel : NSObject
+/** 县市编码 */
+@property (nonatomic, strong) NSString * areaId;
+
+/** 县市名称 */
+@property (nonatomic, strong) NSString * areaName;
+
+
+@end

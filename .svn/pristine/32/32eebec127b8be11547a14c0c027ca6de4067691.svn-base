@@ -1,0 +1,19 @@
+//
+//  HDRegisterModel.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/30.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDRegisterModel : NSObject
+/** 1.token */
+@property (nonatomic, strong) NSString * token;
+
+/** 2.id  */
+@property (nonatomic, strong) NSString * id;
+
+
+@end

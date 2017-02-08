@@ -1,0 +1,17 @@
+//
+//  HDChooseBankView.h
+//  ceshi
+//
+//  Created by 石伟浩 on 16/8/30.
+//  Copyright © 2016年 石伟浩. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface HDChooseBankView : UIView
++ (id)view;
+
+@property (weak, nonatomic) IBOutlet UIButton *closeBankButton;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@end

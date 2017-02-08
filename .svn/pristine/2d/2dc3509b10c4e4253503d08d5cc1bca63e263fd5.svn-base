@@ -1,0 +1,18 @@
+//
+//  HDCashBusinessModel.h
+//  HDJFKJ
+//
+//  Created by 石伟浩 on 16/8/31.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface HDCashBusinessModel : NSObject
+
+/** 1.商户编码 */
+@property (nonatomic, strong) NSString * bussinessId;
+/** 2.商户名称 */
+@property (nonatomic, strong) NSString * name;
+
+@end

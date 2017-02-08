@@ -1,0 +1,19 @@
+//
+//  HDProvinceModel.m
+//  MerchantEdition
+//
+//  Created by 石伟浩 on 16/11/29.
+//  Copyright © 2016年 LDSmallCat. All rights reserved.
+//
+
+#import "HDProvinceModel.h"
+
+@implementation HDProvinceModel
+
+- (void)setCities:(NSArray *)cities{
+
+    _cities = [HDCityModel mj_objectArrayWithKeyValuesArray:cities];
+}
+
+
+@end
